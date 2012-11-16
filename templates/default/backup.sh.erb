@@ -12,6 +12,9 @@ do
     --full-if-older-than "$FULL_IF_OLDER_THAN" \
     --volsize "$VOLUME_SIZE" \
     --s3-use-new-style \
+<% if node['duplicity']['s3_use_european_buckets'] %>
+    --s3-european-buckets \
+<% end %>    
     "$BACKUP_PATH" \
     "s3+http://$S3_BUCKET/$BACKUP_NAME" \
     | logger -t duplicity

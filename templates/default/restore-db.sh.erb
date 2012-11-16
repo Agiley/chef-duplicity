@@ -12,6 +12,9 @@ nice ionice -c3 duplicity \
   --archive-dir "$ARCHIVE" \
   --gpg-options "--homedir=~$DUPLICITY_USER/.gnupg" \
   --s3-use-new-style \
+<% if node['duplicity']['s3_use_european_buckets'] %>
+  --s3-european-buckets \
+<% end %>
   "s3+http://$S3_BUCKET/$BACKUP_NAME" \
   "$BACKUP_PATH" \
   | logger -t duplicity

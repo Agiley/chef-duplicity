@@ -59,7 +59,8 @@ template "/etc/duplicity/config.sh" do
 end
 
 # Backup script
-cookbook_file "/etc/duplicity/backup.sh" do
+template "/etc/duplicity/backup.sh" do
+  source "backup.sh.erb"
   owner node["duplicity"]["user"]
   mode "0700"
 end
@@ -72,7 +73,8 @@ template "/etc/duplicity/backup-db.sh" do
 end
 
 # Restore script
-cookbook_file "/etc/duplicity/restore.sh" do
+template "/etc/duplicity/restore.sh" do
+  source "restore.sh.erb"
   owner node["duplicity"]["user"]
   mode "0700"
 end
