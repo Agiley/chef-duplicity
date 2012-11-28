@@ -7,7 +7,7 @@ do
   . $BACKUP_CONF
   BACKUP_PATH="$TMPDIR/duplicity-db-backup/$BACKUP_NAME"
   mkdir -p "$BACKUP_PATH"
-  mysqldump -u root -p<%= node["mysql"]["server_root_password"] %> --databases "$BACKUP_DB" --add-drop-database > "$BACKUP_PATH/$BACKUP_DB.sql"
+  mysqldump -h <%= node['duplicity']['database']['host'] %> -u <%= node['duplicity']['database']['user'] %> -p<%= node['duplicity']['database']['password'] %> --databases "$BACKUP_DB" --add-drop-database > "$BACKUP_PATH/$BACKUP_DB.sql"
   nice ionice -c3 duplicity \
     --name "$BACKUP_NAME" \
     --archive-dir "$ARCHIVE" \

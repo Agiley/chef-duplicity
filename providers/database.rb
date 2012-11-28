@@ -41,7 +41,7 @@ action :restore do
   bkup_name = new_resource.prefix.nil? ? new_resource.name : new_resource.prefix
   r = mysql_database "duplicity-#{bkup_name}-restore-check" do
     database_name new_resource.db
-    connection ({:host => "localhost", :username => "root", :password => node['mysql']['server_root_password']})
+    connection ({:host => node['duplicity']['database']['host'], :username => node['duplicity']['database']['user'], :password => node['duplicity']['database']['password']})
     sql "SELECT 1;"
     action :nothing
   end

@@ -20,5 +20,5 @@ nice ionice -c3 duplicity \
   | logger -t duplicity
 
 if [ -f "$DUMP_PATH" ]; then
-  mysql -h localhost -u root -p<%= node["mysql"]["server_root_password"] %> < "$DUMP_PATH"
+  mysql -h <%= node['duplicity']['database']['host'] %> -u <%= node['duplicity']['database']['user'] %> -p<%= node['duplicity']['database']['password'] %> < "$DUMP_PATH"
 fi

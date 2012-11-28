@@ -31,6 +31,11 @@ default['duplicity']['s3_bucket']               = ""
 default['duplicity']['s3_use_european_buckets'] = false
 default['duplicity']['volsize']                 = "500"
 default['duplicity']['user']                    = "root"
+
+default['duplicity']['database']['host']        = "localhost"
+default['duplicity']['database']['user']        = ""
+default['duplicity']['database']['password']    = ""
+
 default['duplicity']['cron']['enabled']         = false
 default['duplicity']['cron']['minute']          = "0"
 default['duplicity']['cron']['hour']            = "1"
