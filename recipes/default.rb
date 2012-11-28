@@ -27,10 +27,6 @@
 package "duplicity"
 package "python-boto"
 
-if (node["mysql"]["host"] && !node["mysql"]["host"].empty?)
-  node.override['duplicity']['database']['host']      =   node["mysql"]["host"]
-end
-
 node.set_unless['duplicity']['database']['user']      =   "root"
 node.set_unless['duplicity']['database']['password']  =   node["mysql"]["server_root_password"]
 
