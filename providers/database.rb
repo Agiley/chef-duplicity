@@ -59,6 +59,6 @@ action :remove do
   
   file "/etc/duplicity/backups/db/#{bkup_name}.sh" do
     action :delete
-    only_if { File.exists?("/etc/duplicity/backups/db/#{bkup_name}.sh") }
+    only_if { ::File.exists?("/etc/duplicity/backups/db/#{bkup_name}.sh") }
   end
 end
