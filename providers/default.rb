@@ -45,3 +45,12 @@ action :restore do
     only_if { ::Dir[::File.join(new_resource.path, "*")].empty? }
   end
 end
+
+action :remove do
+  bkup_name = new_resource.prefix.nil? ? new_resource.name : new_resource.prefix
+  
+  file "/etc/duplicity/backups/#{bkup_name}.sh" do
+    action :delete
+    only_if { File.exists?("/etc/duplicity/backups/#{bkup_name}.sh") }
+  end
+end

@@ -53,3 +53,12 @@ action :restore do
     end
   end
 end
+
+action :remove do
+  bkup_name = new_resource.prefix.nil? ? new_resource.name : new_resource.prefix
+  
+  file "/etc/duplicity/backups/db/#{bkup_name}.sh" do
+    action :delete
+    only_if { File.exists?("/etc/duplicity/backups/db/#{bkup_name}.sh") }
+  end
+end

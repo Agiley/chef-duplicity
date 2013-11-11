@@ -24,7 +24,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-actions :restore, :backup
+actions :restore, :backup, :remove
 
 attribute :path, :kind_of => String
 attribute :prefix, :kind_of => String, :default => nil
