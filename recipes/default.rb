@@ -91,14 +91,14 @@ end
 
 # Remove old backups script
 template "/etc/duplicity/remove.sh" do
-  source "backup.sh.erb"
+  source "remove.sh.erb"
   owner node["duplicity"]["user"]
   mode "0700"
 end
 
 # DB remove old backups script
 template "/etc/duplicity/remove-db.sh" do
-  source "backup-db.sh.erb"
+  source "remove-db.sh.erb"
   owner node["duplicity"]["user"]
   mode "0700"
 end
