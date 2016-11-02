@@ -1,0 +1,44 @@
+#!/bin/sh
+
+. /etc/duplicity/config.sh
+
+for BACKUP_CONF in /etc/duplicity/backups/db/*.sh
+do
+  . $BACKUP_CONF
+  nice ionice -c3 duplicity \
+    remove-older-than "$FULL_LIFE" \
+    --force \
+    --archive-dir "$ARCHIVE" \
+    --gpg-options "--homedir=~$DUPLICITY_USER/.gnupg" \
+    --s3-use-new-style \
+<% if node['duplicity']['s3_use_european_buckets'] %>
+    --s3-european-buckets \
+<% end %>
+    "s3+http://$S3_BUCKET/$BACKUP_NAME" \
+    | logger -t duplicity
+  
+  nice ionice -c3 duplicity \
+    remove-all-inc-of-but-n-full "$KEEP_FULL" \
+    --force \
+    --archive-dir "$ARCHIVE" \
+    --gpg-options "--homedir=~$DUPLICITY_USER/.gnupg" \
+    --s3-use-new-style \
+<% if node['duplicity']['s3_use_european_buckets'] %>
+    --s3-european-buckets \
+<% end %>
+    "s3+http://$S3_BUCKET/$BACKUP_NAME" \
+    | logger -t duplicity
+  
+  nice ionice -c3 duplicity \
+    cleanup \
+    --extra-clean \
+    --force \
+    --archive-dir "$ARCHIVE" \
+    --gpg-options "--homedir=~$DUPLICITY_USER/.gnupg" \
+    --s3-use-new-style \
+<% if node['duplicity']['s3_use_european_buckets'] %>
+    --s3-european-buckets \
+<% end %>
+    "s3+http://$S3_BUCKET/$BACKUP_NAME" \
+    | logger -t duplicity
+done

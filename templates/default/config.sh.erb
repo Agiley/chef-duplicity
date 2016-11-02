@@ -5,7 +5,9 @@ DUPLICITY_USER="<%= node["duplicity"]["user"] %>"
 ARCHIVE="<%= node["duplicity"]["archive_dir"] %>"
 S3_BUCKET="<%= node["duplicity"]["s3_bucket"] %>"
 VOLUME_SIZE="<%= node["duplicity"]["volsize"] %>"
-FULL_IF_OLDER_THAN="1W"
+FULL_IF_OLDER_THAN="<%= node["duplicity"]["full_if_older_than"] %>" # create a new full backup every...
+FULL_LIFE="<%= node["duplicity"]["full_life"] %>" # delete any backup older than this
+KEEP_FULL="<%= node["duplicity"]["keep_full"] %>"  # How many full+inc cycle to keep
 
 # Variables passed straight to duplicity
 export TMPDIR="<%= node["duplicity"]["tmp_dir"] %>"

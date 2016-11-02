@@ -89,6 +89,20 @@ template "/etc/duplicity/restore-db.sh" do
   mode "0700"
 end
 
+# Remove old backups script
+template "/etc/duplicity/remove.sh" do
+  source "backup.sh.erb"
+  owner node["duplicity"]["user"]
+  mode "0700"
+end
+
+# DB remove old backups script
+template "/etc/duplicity/remove-db.sh" do
+  source "backup-db.sh.erb"
+  owner node["duplicity"]["user"]
+  mode "0700"
+end
+
 # Install Cron
 cron "duplicity-backup-cron" do
   minute node["duplicity"]["cron"]["minute"]
@@ -98,6 +112,21 @@ cron "duplicity-backup-cron" do
   weekday node["duplicity"]["cron"]["weekday"]
   command "/etc/duplicity/backup.sh ; /etc/duplicity/backup-db.sh"
   if node["duplicity"]["cron"]["enabled"]
+    action :create
+  else
+    action :delete
+  end
+end
+
+# Install Cron for remove old backups script
+cron "duplicity-remove-old-backups-cron" do
+  minute node["duplicity"]["remove_script"]["cron"]["minute"]
+  hour node["duplicity"]["remove_script"]["cron"]["hour"]
+  day node["duplicity"]["remove_script"]["cron"]["day"]
+  month node["duplicity"]["remove_script"]["cron"]["month"]
+  weekday node["duplicity"]["remove_script"]["cron"]["weekday"]
+  command "/etc/duplicity/remove.sh ; /etc/duplicity/remove-db.sh"
+  if node["duplicity"]["remove_script"]["cron"]["enabled"]
     action :create
   else
     action :delete

@@ -32,6 +32,10 @@ default['duplicity']['s3_use_european_buckets'] = false
 default['duplicity']['volsize']                 = "500"
 default['duplicity']['user']                    = "root"
 
+default['duplicity']['full_if_older_than']      = '1M'
+default['duplicity']['full_life']               = '3M'
+default['duplicity']['keep_full']               = '1'
+
 default['duplicity']['database']['host']        = "localhost"
 default['duplicity']['database']['user']        = ""
 default['duplicity']['database']['password']    = ""
@@ -42,6 +46,13 @@ default['duplicity']['cron']['hour']            = "1"
 default['duplicity']['cron']['day']             = "*"
 default['duplicity']['cron']['month']           = "*"
 default['duplicity']['cron']['weekday']         = "*"
+
+default['duplicity']['remove_script']['cron']['enabled']         = false
+default['duplicity']['remove_script']['cron']['minute']          = "0"
+default['duplicity']['remove_script']['cron']['hour']            = "8"
+default['duplicity']['remove_script']['cron']['day']             = "*"
+default['duplicity']['remove_script']['cron']['month']           = "*"
+default['duplicity']['remove_script']['cron']['weekday']         = "*"
 
 tmp_dir = "/tmp"
 if attribute?("ec2")
