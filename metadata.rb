@@ -1,3 +1,4 @@
+name             "Duplicity"
 maintainer       "cj Advertising, LLC"
 maintainer_email "gthornton@cjadvertising.com"
 license          "MIT"
