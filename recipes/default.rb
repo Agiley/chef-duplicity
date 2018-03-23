@@ -27,9 +27,6 @@
 package "duplicity"
 package "python-boto"
 
-node.default_unless['duplicity']['database']['user']      =   "root"
-node.default_unless['duplicity']['database']['password']  =   node["mysql"]["server_root_password"]
-
 # Create archive folder
 directory node["duplicity"]["archive_dir"] do
   owner node["duplicity"]["user"]

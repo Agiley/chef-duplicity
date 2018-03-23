@@ -24,35 +24,37 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-default['duplicity']['gpg_passphrase']          = ""
-default['duplicity']['aws_key_id']              = ""
-default['duplicity']['aws_secret_access_key']   = ""
-default['duplicity']['s3_bucket']               = ""
-default['duplicity']['s3_use_european_buckets'] = false
-default['duplicity']['volsize']                 = "500"
-default['duplicity']['user']                    = "root"
+default['duplicity']['gpg_passphrase']                            =   ""
+default['duplicity']['aws_key_id']                                =   ""
+default['duplicity']['aws_secret_access_key']                     =   ""
+default['duplicity']['s3_bucket']                                 =   ""
+default['duplicity']['s3_use_european_buckets']                   =   false
+default['duplicity']['volsize']                                   =   "500"
+default['duplicity']['user']                                      =   "root"
 
-default['duplicity']['full_if_older_than']      = '1M'
-default['duplicity']['full_life']               = '3M'
-default['duplicity']['keep_full']               = '1'
+default['duplicity']['full_if_older_than']                        =   '1M'
+default['duplicity']['full_life']                                 =   '3M'
+default['duplicity']['keep_full']                                 =   '1'
 
-default['duplicity']['database']['host']        = "localhost"
-default['duplicity']['database']['user']        = ""
-default['duplicity']['database']['password']    = ""
+default['duplicity']['database']['host']                          =   "localhost"
+default['duplicity']['database']['user']                          =   ""
+default['duplicity']['database']['password']                      =   ""
+default['duplicity']['database']['backup_command']                =   "mysqldump -h #{node['duplicity']['database']['host']} -u #{node['duplicity']['database']['user']} -p#{node['duplicity']['database']['password']} --databases \"$BACKUP_DB\" --add-drop-database > \"$BACKUP_PATH/$BACKUP_DB.sql\""
+default['duplicity']['database']['restore_command']               =   "mysql -h #{node['duplicity']['database']['host']} -u #{node['duplicity']['database']['user']} -p#{node['duplicity']['database']['password']} < \"$DUMP_PATH\""
 
-default['duplicity']['cron']['enabled']         = false
-default['duplicity']['cron']['minute']          = "0"
-default['duplicity']['cron']['hour']            = "1"
-default['duplicity']['cron']['day']             = "*"
-default['duplicity']['cron']['month']           = "*"
-default['duplicity']['cron']['weekday']         = "*"
+default['duplicity']['cron']['enabled']                           =   false
+default['duplicity']['cron']['minute']                            =   "0"
+default['duplicity']['cron']['hour']                              =   "1"
+default['duplicity']['cron']['day']                               =   "*"
+default['duplicity']['cron']['month']                             =   "*"
+default['duplicity']['cron']['weekday']                           =   "*"
 
-default['duplicity']['remove_script']['cron']['enabled']         = false
-default['duplicity']['remove_script']['cron']['minute']          = "0"
-default['duplicity']['remove_script']['cron']['hour']            = "8"
-default['duplicity']['remove_script']['cron']['day']             = "*"
-default['duplicity']['remove_script']['cron']['month']           = "*"
-default['duplicity']['remove_script']['cron']['weekday']         = "*"
+default['duplicity']['remove_script']['cron']['enabled']          =   false
+default['duplicity']['remove_script']['cron']['minute']           =   "0"
+default['duplicity']['remove_script']['cron']['hour']             =   "8"
+default['duplicity']['remove_script']['cron']['day']              =   "*"
+default['duplicity']['remove_script']['cron']['month']            =   "*"
+default['duplicity']['remove_script']['cron']['weekday']          =   "*"
 
 tmp_dir = "/tmp"
 if attribute?("ec2")

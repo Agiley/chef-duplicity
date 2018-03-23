@@ -24,7 +24,36 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-actions :restore, :backup, :remove
+property :path, String
+property :prefix, String, default: nil
 
-attribute :path, :kind_of => String
-attribute :prefix, :kind_of => String, :default => nil
+action :backup do
+  bkup_name = new_resource.prefix.nil? ? new_resource.name : new_resource.prefix
+  template "/etc/duplicity/backups/#{bkup_name}.sh" do
+    source "backup_config.sh.erb"
+    cookbook "duplicity"
+    owner node["duplicity"]["user"]
+    variables(
+      :name => bkup_name,
+      :path => new_resource.path
+    )
+  end
+end
+
+action :restore do
+  bkup_name = new_resource.prefix.nil? ? new_resource.name : new_resource.prefix
+  execute "duplicity-restore-#{bkup_name}" do
+    user node["duplicity"]["user"]
+    command "/etc/duplicity/restore.sh '#{bkup_name}'"
+    only_if { ::Dir[::File.join(new_resource.path, "*")].empty? }
+  end
+end
+
+action :remove do
+  bkup_name = new_resource.prefix.nil? ? new_resource.name : new_resource.prefix
+  
+  file "/etc/duplicity/backups/#{bkup_name}.sh" do
+    action :delete
+    only_if { ::File.exists?("/etc/duplicity/backups/#{bkup_name}.sh") }
+  end
+end
