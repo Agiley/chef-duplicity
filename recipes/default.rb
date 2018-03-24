@@ -70,7 +70,6 @@ template "/etc/duplicity/backup-db.sh" do
   source "backup-db.sh.erb"
   owner node["duplicity"]["user"]
   mode "0700"
-  variables(lazy { { backup_command: node['duplicity']['database']['backup_command'] } })
 end
 
 # Restore script
@@ -85,7 +84,6 @@ template "/etc/duplicity/restore-db.sh" do
   source "restore-db.sh.erb"
   owner node["duplicity"]["user"]
   mode "0700"
-  variables(lazy { { restore_command: node['duplicity']['database']['restore_command'] } })
 end
 
 # Remove old backups script

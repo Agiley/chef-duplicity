@@ -7,7 +7,7 @@ do
   . $BACKUP_CONF
   BACKUP_PATH="$TMPDIR/duplicity-db-backup/$BACKUP_NAME"
   mkdir -p "$BACKUP_PATH"
-  <%= @backup_command %>
+  <%= node['duplicity']['database']['backup_command'] %>
   nice ionice -c3 duplicity \
     --name "$BACKUP_NAME" \
     --archive-dir "$ARCHIVE" \

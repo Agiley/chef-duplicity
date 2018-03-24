@@ -37,10 +37,8 @@ default['duplicity']['full_life']                                 =   '3M'
 default['duplicity']['keep_full']                                 =   '1'
 
 default['duplicity']['database']['host']                          =   "localhost"
-default['duplicity']['database']['user']                          =   ""
-default['duplicity']['database']['password']                      =   ""
-default['duplicity']['database']['backup_command']                =   "mysqldump -h #{node['duplicity']['database']['host']} -u #{node['duplicity']['database']['user']} -p#{node['duplicity']['database']['password']} --databases \"$BACKUP_DB\" --add-drop-database > \"$BACKUP_PATH/$BACKUP_DB.sql\""
-default['duplicity']['database']['restore_command']               =   "mysql -h #{node['duplicity']['database']['host']} -u #{node['duplicity']['database']['user']} -p#{node['duplicity']['database']['password']} < \"$DUMP_PATH\""
+default['duplicity']['database']['backup_command']                =   "mysqldump --databases \"$BACKUP_DB\" --add-drop-database > \"$BACKUP_PATH/$BACKUP_DB.sql\""
+default['duplicity']['database']['restore_command']               =   "mysql < \"$DUMP_PATH\""
 
 default['duplicity']['cron']['enabled']                           =   false
 default['duplicity']['cron']['minute']                            =   "0"
