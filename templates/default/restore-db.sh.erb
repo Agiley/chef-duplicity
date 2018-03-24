@@ -20,5 +20,5 @@ nice ionice -c3 duplicity \
   | logger -t duplicity
 
 if [ -f "$DUMP_PATH" ]; then
-  <%= node['duplicity']['database']['restore_command'] %>
+  <%= @restore_command %>
 fi
