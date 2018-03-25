@@ -24,8 +24,18 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-package "duplicity"
+if node['duplicity']['use_ppa']
+  apt_repository 'duplicity-team-ppa' do
+    uri          'ppa:duplicity-team/ppa'
+    distribution node['lsb']['codename']
+  end
+
+  resources(:execute => 'apt-get update').run_action(:run)
+end
+
+package "python-fasteners"
 package "python-boto"
+package "duplicity"
 
 # Create archive folder
 directory node["duplicity"]["archive_dir"] do

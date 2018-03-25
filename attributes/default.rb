@@ -24,6 +24,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+default['duplicity']['install_method']                            =   "package"
+default['duplicity']['use_ppa']                                   =   true
+
 default['duplicity']['gpg_passphrase']                            =   ""
 default['duplicity']['aws_key_id']                                =   ""
 default['duplicity']['aws_secret_access_key']                     =   ""
