@@ -33,9 +33,9 @@ if node['duplicity']['use_ppa']
   resources(:execute => 'apt-get update').run_action(:run)
 end
 
-package "python-fasteners"
-package "python-boto"
-package "duplicity"
+node['duplicity']['packages'].each do |a_package|
+  package a_package
+end
 
 # Create archive folder
 directory node["duplicity"]["archive_dir"] do

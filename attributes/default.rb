@@ -27,6 +27,12 @@
 default['duplicity']['install_method']                            =   "package"
 default['duplicity']['use_ppa']                                   =   true
 
+default['duplicity']['packages']                                  =   %w(
+  python-fasteners
+  python-boto
+  duplicity
+)
+
 default['duplicity']['gpg_passphrase']                            =   ""
 default['duplicity']['aws_key_id']                                =   ""
 default['duplicity']['aws_secret_access_key']                     =   ""
