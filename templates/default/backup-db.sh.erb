@@ -5,10 +5,14 @@
 for BACKUP_CONF in /etc/duplicity/backups/db/*.sh
 do
   . $BACKUP_CONF
-  BACKUP_PATH="$TMPDIR/duplicity-db-backup/$BACKUP_NAME"
-  mkdir -p "$BACKUP_PATH"
-  <%= node['duplicity']['database']['backup_command'] %>
-  nice ionice -c3 duplicity \
+  
+	BACKUP_PATH="$TMPDIR/duplicity-db-backup/$BACKUP_NAME"
+  
+	mkdir -p "$BACKUP_PATH"
+  
+	<%= node['duplicity']['database']['backup_command'] %>
+  
+	nice ionice -c3 duplicity \
     --name "$BACKUP_NAME" \
     --archive-dir "$ARCHIVE" \
     --gpg-options "--homedir=~$DUPLICITY_USER/.gnupg" \
@@ -21,4 +25,6 @@ do
     "$BACKUP_PATH" \
     "s3+http://$S3_BUCKET/$BACKUP_NAME" \
     | logger -t duplicity
+	
+	rm -rf "$BACKUP_PATH"
 done
