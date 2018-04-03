@@ -25,6 +25,8 @@
 #
 
 if node['duplicity']['use_ppa']
+  include_recipe "apt"
+  
   apt_repository 'duplicity-team-ppa' do
     uri          'ppa:duplicity-team/ppa'
     distribution node['lsb']['codename']
