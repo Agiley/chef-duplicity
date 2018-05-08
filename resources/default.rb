@@ -25,7 +25,7 @@
 #
 
 property :path, String
-property :prefix, String, default: nil
+property :prefix, [String, NilClass]
 
 action :backup do
   bkup_name = new_resource.prefix.nil? ? new_resource.name : new_resource.prefix
