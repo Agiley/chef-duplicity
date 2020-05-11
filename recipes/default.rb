@@ -30,9 +30,11 @@ if node['duplicity']['use_ppa']
   apt_repository 'duplicity-team-ppa' do
     uri          'ppa:duplicity-team/ppa'
     distribution node['lsb']['codename']
+    retries 3
+    retry_delay 5    
   end
 
-  resources(:execute => 'apt-get update').run_action(:run)
+  resources(execute: 'apt-get update').run_action(:run)
 end
 
 node['duplicity']['packages'].each do |a_package|
