@@ -25,7 +25,6 @@
 #
 
 default['duplicity']['install_method']                            =   "package"
-default['duplicity']['use_ppa']                                   =   true
 
 default['duplicity']['packages']                                  =   %w(
   python-fasteners

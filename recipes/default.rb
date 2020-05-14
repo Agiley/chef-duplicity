@@ -24,21 +24,13 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-if node['duplicity']['use_ppa']
-  include_recipe "apt"
-  
-  apt_repository 'duplicity-team-ppa' do
-    uri          'ppa:duplicity-team/ppa'
-    distribution node['lsb']['codename']
-    retries 3
-    retry_delay 5    
+
+if node['duplicity']['install_method'] == 'package'
+  node['duplicity']['packages'].each do |a_package|
+    package a_package
   end
-
-  resources(execute: 'apt-get update').run_action(:run)
-end
-
-node['duplicity']['packages'].each do |a_package|
-  package a_package
+elsif node['duplicity']['install_method'] == 'snap'
+  snap_package 'duplicity'
 end
 
 # Create archive folder
